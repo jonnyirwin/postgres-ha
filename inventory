@@ -1,0 +1,15 @@
+[pg_master]
+master ansible_host=192.168.53.21
+
+[pg_master:vars]
+pg_node_type=master
+
+[pg_replica]
+replica ansible_host=192.168.53.22
+
+[pg_replica:vars]
+pg_node_type=replica
+
+[db:children]
+pg_master
+pg_replica

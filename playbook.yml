@@ -1,0 +1,23 @@
+---
+- name: Setup tasks common to all database servers
+  hosts: db 
+  become: yes
+  tasks:
+    - name: Create vagrant user SSH key
+      user: 
+        name: vagrant
+        generate_ssh_key: yes
+        ssh_key_bits: 4096
+        state: present
+
+- name: Setup tasks for the master database node
+  hosts: pg_master
+  become: yes
+  roles:
+    - ansible-role-postgres
+
+- name: Setup tasks for replica database nodes
+  hosts: pg_replica
+  become: yes
+  roles:
+    - ansible-role-postgres
